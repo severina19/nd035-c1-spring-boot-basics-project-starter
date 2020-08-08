@@ -35,6 +35,14 @@ public class FileController {
     public String createOrUpdateFiles(Authentication authentication, MultipartFile fileUpload, Model model) throws IOException {
         String username = authentication.getName();
         Integer userid = this.userMapper.getUser(username).getUserId();
+
+        String fileName = fileUpload.getOriginalFilename();
+        Boolean fileExists = this.fileService.userHasFile(userid, fileName);
+        System.out.println(fileExists);
+        if (fileExists) {
+            return "redirect:/result?DuplicatedError";
+        }
+
         try {
             this.fileService.addFile(fileUpload, userid);
         } catch (IOException e) {

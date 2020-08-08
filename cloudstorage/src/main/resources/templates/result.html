@@ -18,6 +18,12 @@
                 <h1 class="display-5">Success</h1>
                 <span>Your file was successfully uploaded. Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>
+            <div class="alert alert-danger fill-parent" th:if="${param.DuplicatedError}">
+                <h1 class="display-5">Error</h1>
+                <span>File already exists! Cannot upload file with same name again. If you want to overwrite the existing file,
+                    please delete the file first and upload the new file. Click <a th:href="@{/home}">here</a> to continue.</span>
+            </div>
+
             <div class="alert alert-success fill-parent" th:if="${param.CredentialSuccess}">
                 <h1 class="display-5">Success</h1>
                 <span>Your credential was successfully saved. Click <a id="toHome" th:href="@{/home}">here</a> to continue.</span>

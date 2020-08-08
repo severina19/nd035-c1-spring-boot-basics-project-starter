@@ -6,6 +6,7 @@ import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class FileService {
         this.fileMapper = fileMapper;
     }
 
-    public void addFile (MultipartFile fileUpload, Integer userid) throws IOException{
+    public void addFile(MultipartFile fileUpload, Integer userid) throws IOException{
 
         File file = new File();
         try {
@@ -44,6 +45,14 @@ public class FileService {
     }
     public File getFileById(int fileid) {
         return fileMapper.findByFileId(fileid);
+    }
+    public Boolean userHasFile(Integer userid, String fileName){
+        if (!ObjectUtils.isEmpty(fileMapper.findByUserIdAndFileName(userid, fileName)))
+        {
+            return true;
+        }
+
+        return false;
     }
 
 }
